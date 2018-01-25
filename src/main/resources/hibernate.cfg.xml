@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property><!--连接字符串-->
+        <property name="connection.url">jdbc:mysql://127.0.0.1/test</property>
+        <property name="connection.username">root</property><!--用户名-->
+        <property name="connection.password">123</property><!--密码-->
+
+        <!-- JDBC connection pool (use the built-in) 
+        <property name="connection.pool_size">1</property>
+        -->
+
+        <!-- SQL dialect【方言】 意为在这里配置数据库语言 -->
+        <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+        <!-- Echo all executed SQL to stdout  是否打印sql语句 -->
+        <property name="show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup 
+		根据值去增删改查数据库
+        <property name="hbm2ddl.auto">create</property>
+		-->
+		
+		
+		<!--当一个类被加上元注解后，这个类就会被映射到数据库中
+		-->
+		<mapping class="com.woomoon.entity.StuEntity"/>
+
+    </session-factory>
+
+</hibernate-configuration>
+
+<!--
+spring 中常用的注解有哪些？
+
+
+
+	
+ -->
+ 
+ 
+ 

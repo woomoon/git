@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--扫描器 扫描所有加了@controller 的类，只扫描controller这个包而不是扫描所有的。 -->
+    <context:component-scan base-package="com.woomoon.controller"/>
+
+    <!-- 让spring支持aspectj autoproxy[自动代理]
+    让spring 强制使用cjlib(proxy-target-class="true" )
+    jdk 动态代理与
+    cjlib  效率更高
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    -->
+
+    <!-- 让方法支持responseBody的注解，并返回结果交给 FastJson 去转换 -->
+    <!-- 让加了@responseBody 的方法自动返回JSON 使用 FastJson 技术  -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list><!-- 适配一个fastjson -->
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <value>text/html;charset=UTF-8</value>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--视图解析器-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="\"/>
+        <!--后缀-->
+        <property name="suffix" value=".html"/>
+    </bean>
+
+</beans>
