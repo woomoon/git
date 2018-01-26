@@ -24,8 +24,7 @@
 		根据值去增删改查数据库
         <property name="hbm2ddl.auto">create</property>
 		-->
-		
-		
+
 		<!--当一个类被加上元注解后，这个类就会被映射到数据库中
 		-->
 		<mapping class="com.woomoon.entity.StuEntity"/>
