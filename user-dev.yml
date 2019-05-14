@@ -1,0 +1,43 @@
+server:
+  port: 5003
+eureka:
+  client:
+    serviceUrl:
+      # eureka服务端提供的注册地址 参考服务端配置的这个路径
+      # (luban_cloud.eureka3000.src.main.resources.application.yml ....defaultZone=...中配置的地址)
+      # 不会注册三次，只要注册一次之后不会再次注册。
+      defaultZone: http://134.175.119.237:3000/eureka,http://47.102.117.9:3000/eureka
+  instance:
+    #此实例注册到eureka服务端的唯一的实例ID
+    instance-id: user-1
+    #是否显示IP地址
+    prefer-ip-address: true
+    #eureka客户需要多长时间发送心跳给eureka服务器，表明它仍然活着,默认为30 秒 (与下面配置的单位都是秒)
+    leaseRenewalIntervalInSeconds: 10
+    #Eureka服务器在接收到实例的最后一次发出的心跳后，需要等待多久才可以将此实例删除，默认为90秒
+    leaseExpirationDurationInSeconds: 30
+spring:
+  application:
+    #此实例注册到eureka服务端的name,当出现name 重复时会合并
+    name: server-user
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 控制超时监听的时间，默认 2s
+            timeoutInMilliseconds: 20000
+      circuitBreaker:
+        # 控制N次访问失败后，短路时间
+        requestVolumeThreshold: 5
+        # 控制短路之后重新允许访问的时间
+        sleepWindowInMilliseconds: 10000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
